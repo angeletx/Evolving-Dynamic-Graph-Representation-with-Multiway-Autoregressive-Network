@@ -234,7 +234,6 @@ summary['l1Weight'] = exp_params['l1_weight']
 summary['l2Weight'] = exp_params['l2_weight']
 summary['model'] = eval(exp_params['model'])
 summary['dataset'] = eval(exp_params['name'])
-print(exp_params['num_hidden_layers'])
 summary['numHiddenLayers'] = eval(exp_params['num_hidden_layers'])
 summary['gcnHiddenLayerSize'] = eval(exp_params['hidden_feats'])
 if isinstance(summary['gcnHiddenLayerSize'], list) and len(summary['gcnHiddenLayerSize']) < 2:

@@ -26,8 +26,6 @@ else:
 params = []
 params.append('learning_rate')
 params.append('num_hist_steps')
-params.append('l1_weight')
-params.append('l2_weight')
 params.append('hidden_feats')
 params.append('class_weights')
 params.append('name')
@@ -64,7 +62,6 @@ summary['highestMRR'] = -1
 summary['highestNDCG'] = -1
 summary['learningRate'] = -1
 summary['historyStep'] = -1
-summary['l1Weight'] = -1
 summary['model'] = ''
 summary['gcnHiddenLayerSize'] = -1
 summary['numHiddenLayers'] = -1
@@ -230,8 +227,6 @@ summary['highestMRR'] = best_mrr['TEST']
 summary['highestNDCG'] = best_ndcg['TEST']
 summary['learningRate'] = eval(exp_params['learning_rate'])
 summary['historyStep'] = eval(exp_params['num_hist_steps'])
-summary['l1Weight'] = exp_params['l1_weight']
-summary['l2Weight'] = exp_params['l2_weight']
 summary['model'] = eval(exp_params['model'])
 summary['dataset'] = eval(exp_params['name'])
 summary['numHiddenLayers'] = eval(exp_params['num_hidden_layers'])

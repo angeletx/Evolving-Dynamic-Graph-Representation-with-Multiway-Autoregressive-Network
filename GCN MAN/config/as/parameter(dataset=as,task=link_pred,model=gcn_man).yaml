@@ -1,0 +1,49 @@
+
+dataset:
+  name: as
+  folder: ./data/as/
+  edges_file: as-733.tar.gz
+  aggr_time: 1
+  steps_accounted: 100
+
+use_cuda: True
+use_log: True
+model: gcn_man
+task: link_pred
+class_weights: [0.1, 0.9]
+use_2_hot_node_feats: False
+use_1_hot_node_feats: True
+save_node_embeddings: False
+train_proportion: 0.700000
+dev_proportion: 0.100000
+num_epochs: 300
+steps_accum_gradients: 1
+learning_rate: 0.001000
+negative_mult_training: 100
+negative_mult_test: 100
+smart_neg_sampling: True
+target_measure: MAP
+target_class: 1
+early_stop_patience: 50
+eval_after_epochs: 5
+adj_mat_time_window: 1  # Time window to create the adj matrix for each timestep. Use None to use all the history (from 0 to t)
+num_hist_steps: 5
+seed: 3456
+
+gcn_parameters:
+  num_hidden_layers: 6
+  hidden_feats: [128, 128, 128, 128, 128, 128]
+  l1_weight: [0,0,140,140]
+  l2_weight: [0,0,140,140]
+  cls_feats: 100  # Hidden size of the classifier
+
+data_loading_params:
+  batch_size: 1
+  num_workers: 8
+
+log:
+  folder: ./blog/as/
+  file: dataset=as,task=link_pred,model=gcn_man.log
+
+comments: 
+  - comments

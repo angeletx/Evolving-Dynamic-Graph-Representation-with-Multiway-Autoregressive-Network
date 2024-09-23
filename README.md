@@ -17,10 +17,6 @@ This his repository contains the code for [Evolving Dynamic Graph Representation
 For new data sets, please place them in the 'data' folder.
 
 ## Requirements
-  * PyTorch 1.0 or higher
-  * Python 3.8
-
-## Requirements
   * python==3.8.10
   * cycler==0.10.0
   * joblib==1.0.1

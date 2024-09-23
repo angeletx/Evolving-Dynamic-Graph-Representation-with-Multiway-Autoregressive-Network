@@ -33,7 +33,7 @@ For new data sets, please place them in the 'data' folder.
   * scipy==1.6.2
   * six==1.16.0
   * threadpoolctl==2.1.0
-  * torch==1.8.1+cu111
+  * torch==1.8.1
   * typing-extensions==3.10.0.0
 
 ## Usage

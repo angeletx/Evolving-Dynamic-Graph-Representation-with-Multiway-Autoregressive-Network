@@ -17,24 +17,15 @@ This his repository contains the code for [Evolving Dynamic Graph Representation
 For new data sets, please place them in the 'data' folder.
 
 ## Requirements
-  * python==3.8.10
-  * cycler==0.10.0
-  * joblib==1.0.1
-  * kiwisolver==1.3.1
-  * matplotlib==3.3.4
-  * numpy==1.20.2
-  * pandas==1.2.5
-  * Pillow==8.2.0
-  * pyparsing==2.4.7
-  * python-dateutil==2.8.1
-  * pytz==2021.1
-  * PyYAML==5.4.1
-  * scikit-learn==0.24.2
-  * scipy==1.6.2
-  * six==1.16.0
-  * threadpoolctl==2.1.0
-  * torch==1.8.1
-  * typing-extensions==3.10.0.0
+* python==3.8.10
+* matplotlib==3.7.1
+* numpy==1.24.3
+* pandas==2.0.3
+* pillow==8.2.0
+* pyyaml==5.4.1
+* scikit-learn==0.24.2
+* torch==2.0.0
+
 
 ## Usage
 

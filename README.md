@@ -16,16 +16,14 @@ This his repository contains the code for [Evolving Dynamic Graph Representation
 
 For new data sets, please place them in the 'data' folder.
 
-## Requirements
-* python==3.8.10
-* matplotlib==3.7.1
-* numpy==1.24.3
-* pandas==2.0.3
-* pillow==8.2.0
-* pyyaml==5.4.1
-* scikit-learn==0.24.2
-* torch==2.0.0
+## Build MAN
+conda create -n MAN python=3.8.10 pyyaml=5.4.1 numpy=1.24.3 matplotlib=3.7.1 scikit-learn=1.3.0 pandas=2.0.3 pillow=8.2.0 pytorch==2.0.0 pytorch-cuda=11.8 -c pytorch -c nvidia
 
+## Activate MAN
+conda activate MAN
+
+## Run demo
+./runDemo.sh
 
 ## Usage
 

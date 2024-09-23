@@ -21,12 +21,11 @@ For new data sets, please place them in the 'data' folder.
   * Python 3.8
 
 ## Requirements
-  * PyTorch 1.8.1 
-  * Python 3.8
+  * python==3.8.10
   * cycler==0.10.0
   * joblib==1.0.1
   * kiwisolver==1.3.1
-  * matplotlib==3.4.2
+  * matplotlib==3.3.4
   * numpy==1.20.2
   * pandas==1.2.5
   * Pillow==8.2.0
@@ -40,8 +39,6 @@ For new data sets, please place them in the 'data' folder.
   * threadpoolctl==2.1.0
   * torch==1.8.1+cu111
   * typing-extensions==3.10.0.0
-  * scikit-learn=0.24.2
-  * yaml=0.2.5
 
 ## Usage
 

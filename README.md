@@ -1,7 +1,7 @@
 MAN
 =====
 
-This his repository contains the code for [Evolving Dynamic Graph Representations with Multiway Autoregressive Network for Temporal Link Prediction].
+This repository contains the code for [Evolving Dynamic Graph Representations with Multiway Autoregressive Network for Temporal Link Prediction].
 
 ## Data
 
@@ -96,8 +96,7 @@ The configuration files for each dataset are placed in a subdirectory of "config
 Running the above command will output a log file in the corresponding subdirectory of "blog" directory. For instance, the log files of the "body" dataset are placed in the "blog/body" subdirectory. The log files record information about the experiment and validation metrics for the various epochs. Instead of manual analysis, one may utilize the "log\_analyzer.py" file to automatically extract the best performance in different evaluation criteria from the log file. For example:
 
 ```sh
-python log_analyzer.py "./blog/body/dataset=body,task=link_pred,\
-       model=gcn_man.log"
+python log_analyzer.py "./blog/body/dataset=body,task=link_pred,model=gcn_man.log"
 ```
 
 To execute the two commands together, you can directly run the "runDemo.sh" script for all the datasets.

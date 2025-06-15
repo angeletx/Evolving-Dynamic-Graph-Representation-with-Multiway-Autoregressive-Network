@@ -1,11 +1,7 @@
 MAN
 =====
 
-This repository contains the code for [Evolving Dynamic Graph Representations with Multiway Autoregressive Network for Temporal Link Prediction].
-
-## Data
-
-For the datasets to be processed, place them in the 'data' folder, e.g. 'data/body' subfolder.
+This repository contains the code for [MAN: A Dynamic Graph Representation Framework for Temporal Link Prediction].
 
 ## Requirements
 
@@ -96,3 +92,6 @@ To execute the two commands together, you can directly run the "runDemo.sh" scri
 ./runDemo.sh
 ```
 
+## Acknowledgements
+
+Part of this code is inspired by Pareja et al.'s [EvolveGCN](https://github.com/IBM/EvolveGCN). We owe sincere thanks to their valuable efforts and contributions.

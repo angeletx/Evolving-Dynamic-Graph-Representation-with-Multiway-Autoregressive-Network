@@ -1,7 +1,7 @@
 
 dataset:
   name: college
-  folder: ./data/college/
+  folder: ./data/uci/
   edges_file: CollegeMsg.txt
   features_file: []
   aggr_time: 259200
@@ -43,7 +43,7 @@ data_loading_params:
   num_workers: 8
 
 log:
-  folder: ./blog/college/
+  folder: ./blog/uci/
   file: dataset=college,task=link_pred,model=gcn_man.log
 
 comments: 

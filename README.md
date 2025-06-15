@@ -5,7 +5,7 @@ This repository contains the code for [Evolving Dynamic Graph Representations wi
 
 ## Data
 
-For new datasets, please place them in the 'data' folder, e.g. 'data/body' folder.
+For the datasets to be processed, place them in the 'data' folder, e.g. 'data/body' subfolder.
 
 ## Requirements
 

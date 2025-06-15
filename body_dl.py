@@ -6,7 +6,6 @@ import torch
 class Dataset():
 	def __init__(self,args):
 
-		#args.email_eu_args = u.Namespace(args.email_eu_args)
 		args.dataset_args = u.Namespace(args.dataset)
 
 		edges_file = os.path.join(args.dataset_args.folder, args.dataset_args.edges_file)

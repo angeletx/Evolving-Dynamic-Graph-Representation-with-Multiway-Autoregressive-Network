@@ -5,11 +5,9 @@ import numpy as np
 
 class Dataset():
     def __init__(self,args):
-        #args.email_eu_args = u.Namespace(args.email_eu_args)
         args.dataset_args = u.Namespace(args.dataset)
 
         edges_file = os.path.join(args.dataset_args.folder, args.dataset_args.edges_file)  
-        #print(edges_file)
 
         self.edges = self.load_edges(args, edges_file)
     
@@ -34,8 +32,6 @@ class Dataset():
                         dim=0)
 
         index = torch.eq(data[:,cols.source],data[:,cols.target])
-        # if torch.sum(index) > 0:
-        #     print('exists diagonal edges!')
 
         _, data[:,[cols.source,cols.target]] = data[:,[cols.source,cols.target]].unique(return_inverse = True)
         self.num_nodes = int(data[:,[cols.source,cols.target]].max()+1)

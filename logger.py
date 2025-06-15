@@ -110,7 +110,6 @@ class Logger():
 
         new_edges_P = np.sum(new_edges_truth)
         new_edges_ratio = np.float64(new_edges_P/len(new_edges_truth))
-        #print("new_edges_ratio: ", new_edges_ratio)
 
         if new_edges_P == 0 or len(new_edges_truth) == 0:
             new_edges_prauc = 0
@@ -137,12 +136,7 @@ class Logger():
         product = np.float64(partA * 2* abs(previous_edges_auc-0.5))
         gmauc = product ** 0.5
         
-        #if self.set in ['TEST']:
-        #    new_positive, new_negative, old_positive, old_negative, new_positive_ratio, old_positive_ratio = tu.get_statistics(true_classes, prev_edges_mask)
-        #    print('new_positive: {}, new_negative: {}, old_positive: {}, old_negative: {}, new_positive_ratio: {}, old_positive_ratio: {}'.format(new_positive, new_negative, old_positive, old_negative, new_positive_ratio, old_positive_ratio))
-
         return gmauc,new_edges_prauc,new_edges_ratio,previous_edges_auc,previous_edges_prauc,previous_edges_ratio
-        #return gmauc
         
     def get_MAP(self,predictions,true_classes, do_softmax=False):
         if do_softmax:
@@ -154,73 +148,12 @@ class Logger():
         true_classes_np = true_classes.detach().cpu().numpy()
 
         return average_precision_score(true_classes_np, predictions_np)
-
-    def getMicroAUC(self, probs, true_classes):
-        # Compute micro-average ROC curve and ROC area
-        fpr["micro"], tpr["micro"], _ = roc_curve(true_classes.ravel(), probs.ravel())
-        return auc(fpr["micro"], tpr["micro"])
-
-    def getMulticlassAUC(self, probs, y):
-        n_classes = y.shape[1]
         
-        # Compute ROC curve and ROC area for each class
-        fpr = dict()
-        tpr = dict()
-        roc_auc = dict()
-        for i in range(n_classes):
-            fpr[i], tpr[i], _ = roc_curve(y[:, i], probs[:, i])
-            roc_auc[i] = auc(fpr[i], tpr[i])
-
-        # Compute micro-average ROC curve and ROC area
-        fpr["micro"], tpr["micro"], _ = roc_curve(y.ravel(), probs.ravel())
-        roc_auc["micro"] = auc(fpr["micro"], tpr["micro"])
-    
-        # First aggregate all false positive rates
-        all_fpr = np.unique(np.concatenate([fpr[i] for i in range(n_classes)]))
-
-        # Then interpolate all ROC curves at this points
-        mean_tpr = np.zeros_like(all_fpr)
-        for i in range(n_classes):
-            mean_tpr += np.interp(all_fpr, fpr[i], tpr[i])
-
-        # Finally average it and compute AUC
-        mean_tpr /= n_classes
-
-        fpr["macro"] = all_fpr
-        tpr["macro"] = mean_tpr
-        roc_auc["macro"] = auc(fpr["macro"], tpr["macro"])
-        
-        return roc_auc["micro"], roc_auc["macro"]
-    
-#    def getMacroAUC(self, probs, true_classes, avg='macro', multi='ovo'):
-#        predictions_np = probs.detach().cpu().numpy()
-#        true_classes_np = true_classes.detach().cpu().numpy()
-#        
-#        return roc_auc_score(true_classes_np, predictions_np, average=avg, multi_class=multi)
-    
-    def getBinaryAUC(self, probs, true_classes):
-        predictions_np = probs.detach().cpu().numpy()
-        true_classes_np = true_classes.detach().cpu().numpy()
-        
-        fpr, tpr, thresholds = roc_curve(true_classes_np, predictions_np)
-        #return roc_auc_score(true_classes_np, predictions_np, average=avg, multi_class=multi)
-        return auc(fpr, tpr)
-
-    def get_dprime(self, auc):
-        standard_normal = stats.norm()
-        d_prime = standard_normal.ppf(auc) * np.sqrt(2.0)
-        return d_prime
-        
-    #def log_minibatch(self, predictions, true_classes, loss, **kwargs):
     def log_minibatch(self, predictions, label_sp, loss, **kwargs):
-        #print(self.args.task)
 
         if self.args.task == "link_pred":
             # Add to remove diagonal edges
             nondiag_mask = label_sp['idx'][0] != label_sp['idx'][1]
-            #print('nondiag_mask.device:',nondiag_mask.device) 
-            #label_sp['idx'] = label_sp['idx'][:, nondiag_mask]
-            #label_sp['vals'] = label_sp['vals'][nondiag_mask]
 
             true_ids = label_sp['idx'][:, nondiag_mask]
             true_classes = label_sp['vals'][nondiag_mask]
@@ -231,14 +164,8 @@ class Logger():
             
             if self.set in ['TEST', 'VALID'] and self.args.task == 'link_pred':
                 MRR = self.get_MRR(probs,true_classes, true_ids, do_softmax=False) 
-                #mask = torch.BoolTensor(kwargs['prev_edges_mask'])[nondiag_mask]
                 mask = torch.BoolTensor(kwargs['prev_edges_mask'])[nondiag_mask.to('cpu')]
-                #GMAUC = torch.tensor(self.get_GMAUC(probs,true_classes, mask[nondiag_mask], do_softmax=False))
             
-                #if self.set in ['TEST']:
-                #    new_positive, new_negative, old_positive, old_negative, new_positive_ratio, old_positive_ratio = tu.get_statistics(true_classes, mask)
-                #    print('new_positive: {}, new_negative: {}, old_positive: {}, old_negative: {}, new_positive_ratio: {}, old_positive_ratio: {}'.format(new_positive, new_negative, old_positive, old_negative, new_positive_ratio, old_positive_ratio))
-
                 GMAUC,new_edges_prauc,new_edges_ratio,previous_edges_auc,previous_edges_prauc,previous_edges_ratio = torch.tensor(self.get_GMAUC(probs,true_classes, mask, do_softmax=False))
             else:
                 MRR = torch.tensor([0.0])
@@ -251,26 +178,6 @@ class Logger():
 
             MAP = torch.tensor(self.get_MAP(probs,true_classes, do_softmax=False))
             NDCG = torch.tensor(self.get_NDCG(probs,true_classes, do_softmax=False))
-        
-            if len(true_classes.unique()) == 0:
-                microAUC = torch.tensor(0)
-                macroAUC = torch.tensor(0)
-                microDprime = torch.tensor(0)
-                macroDprime = torch.tensor(0)
-            elif len(true_classes.unique()) == 2:
-                AUC = torch.tensor(self.getBinaryAUC(probs, true_classes))
-                dprime = torch.tensor(self.get_dprime(AUC))
-                microAUC = AUC
-                macroAUC = AUC
-                microDprime = dprime
-                macroDprime = dprime
-            else:
-                y = label_binarize(true_classes, classes=unique(true_classes))
-                microAUC_value, macroAUC_value = self.getMulticlassAUC(probs, y)
-                microAUC = torch.tensor(microAUC_value)
-                macroAUC = torch.tensor(macroAUC_value) 
-                microDprime = torch.tensor(self.get_dprime(microAUC))
-                macroDprime = torch.tensor(self.get_dprime(macroAUC))
             
             batch_size = predictions.size(0)
             self.batch_sizes.append(batch_size)
@@ -314,16 +221,13 @@ class Logger():
         return result
 
     def log_epoch_done(self,atte = None):
-        #print('target_measure: {}'.format(self.args.target_measure))
         eval_measure = 0
 
         self.losses = torch.stack(self.losses).detach().cpu().numpy()
-        #print("self.losses: ", self.losses)
         loss = self.losses.mean().item()
         logging.info(self.set+' mean losses '+ str(loss))
         if self.args.target_measure=='loss' or self.args.target_measure=='Loss':
             eval_measure = -loss
-            #print("eval_measure: ", eval_measure)
 
         if self.args.task == 'link_pred':
             epoch_MRR = self.calc_epoch_metric(self.batch_sizes, self.MRRs)
@@ -360,7 +264,6 @@ class Logger():
                 eval_measure = epoch_NDCG
         
         logging.info (self.set+' Total epoch time: '+ str(((time.monotonic()-self.ep_time))))
-        #print('final eval_measure: {}'.format(eval_measure))
 
         return eval_measure
 
@@ -374,7 +277,6 @@ class Logger():
         true_classes = true_classes.cpu().numpy()
         adj = adj.cpu().numpy()
 
-        #print('probs length: {}, adj[0]: {}, adj[1]: {}'.format(np.shape(probs),adj[0][-1],adj[1][-1]))
         pred_matrix = coo_matrix((probs,(adj[0],adj[1]))).toarray()
         true_matrix = coo_matrix((true_classes,(adj[0],adj[1]))).toarray()
 

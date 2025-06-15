@@ -11,8 +11,6 @@ import sys
 #datasets
 import email_eu_dl as ee
 import auto_syst_dl as aus
-import college_msg_dl as cm
-import email_eu_dl as ee
 import enron_dl as enron
 import trust_dl as trust
 import body_dl as body

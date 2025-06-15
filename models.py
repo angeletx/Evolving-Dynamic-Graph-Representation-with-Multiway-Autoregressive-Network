@@ -10,7 +10,6 @@ class Sp_GCN(torch.nn.Module):
     def __init__(self,args,activation):
         super().__init__()
         self.activation = activation
-        #self.num_layers = args.num_layers
         self.num_layers = args.num_hidden_layers
 
         self.w_list = nn.ParameterList()

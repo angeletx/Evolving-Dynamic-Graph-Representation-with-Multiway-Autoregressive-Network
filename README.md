@@ -5,16 +5,7 @@ This repository contains the code for [Evolving Dynamic Graph Representations wi
 
 ## Data
 
-6 datasets were used in the paper:
-
-- 16-body problem: See the 'data/body' folder. 
-- Enron: https://cs.cmu.edu/∼enron/
-- Email Dept1: https://snap.stanford.edu/data/email-Eu-core-temporal.html
-- College: https://snap.stanford.edu/data/CollegeMsg.html
-- Autonomous Systems: https://snap.stanford.edu/data/as-733.html
-- Epinion Trust: https://cse.msu.edu/∼tangjili/trust.html
-
-For new data sets, please place them in the 'data' folder.
+For new datasets, please place them in the 'data' folder, e.g. 'data/body' folder.
 
 ## Requirements
 

@@ -92,6 +92,3 @@ To execute the two commands together, you can directly run the "runDemo.sh" scri
 ./runDemo.sh
 ```
 
-## Acknowledgements
-
-Part of this code is inspired by Pareja et al.'s [EvolveGCN](https://github.com/IBM/EvolveGCN). We owe sincere thanks to their valuable efforts and contributions.
